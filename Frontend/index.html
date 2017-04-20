@@ -1,0 +1,66 @@
+<!-- You need an Angular front end that shows a table of your users and a form to add a new user. -->
+<!-- use Shopular as guide, pull API info (already created) -->
+
+<!doctype html>
+<html ng-app='node'>
+  <head>
+  	<title>38 Mongoose Node-Convert your existing api to use mongo</title>
+  	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+
+    <section  ng-controller='TableController as vm' class="container col-md-8 col-md-offset-2">
+
+			<header class="header">
+	  			<h2 ng-hide="vm.showMe">IaMDb <i class="fa fa-database" aria-hidden="true"></i></h2>
+				  						<!-- Mongoose - Convert your existing api to use mongo -->
+			</header>
+	
+			<table class="table table-striped table-responsive" ng-class="vm.table">  <!-- 'table-striped' would alternate rows -->
+				<thead>
+					<tr>
+						<th>ID</th>
+                        <th>Name</th>
+						<th>Age</th>
+						<th>Likes JavaScript?</th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr class="tableRow" ng-repeat="item in vm.data track by $index ">	
+						<td>{{item._id}}</td>
+						<td>{{item.name}}</td>
+                        <td>{{item.age}}</td>
+					    <td>{{item.likeJS}}</td>
+						<td><button ng-click="vm.deleteItem(item._id)"> X </button></td> 
+					</tr>
+				</tbody>
+			</table>
+
+			<footer class="footer">
+
+				<h3>[+] Add Person</h3>
+															
+				<form class="addPerson" novalidate name='addPerson' ng-submit="vm.addItem(addPerson.$valid)">
+					<!-- can remove ID, mongoose asigns ID automatically <input type='number' placeholder="ID" ng-model='vm.item.id' required> -->
+                    <input type='text' placeholder="Name" ng-model='vm.item.name' required>
+					<input type='number' placeholder="Age" ng-model='vm.item.age' required>
+                    Do you like JavaScript? <select ng-model='vm.item.likeJS' required><Option value="true">Yes</Option><Option value="false">No</Option>
+					<input class="submitButton" type='submit'  value="Add to Database">		<!-- <button class="btn btn-primary" type="submit">Add to Database</button> on click will add person to data in JS -->
+				</form>
+
+			</footer>
+    </section>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    
+	<script src='main.js'></script>	<!-- put controllers and services after main.js -->
+	<script src='TableController.js'></script>
+	<script src='API.js'></script>
+
+  </body>
+</html>
